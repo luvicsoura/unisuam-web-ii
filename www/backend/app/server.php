@@ -34,8 +34,7 @@
 
         private function handle_request() {
             
-            $request_path = $_SERVER['REQUEST_URI'];
-            
+            $request_path = str_replace("/api", "", $_SERVER['REQUEST_URI']);
             $handler = $this->get_endpoint_handler($request_path);
             $method = strtolower($_SERVER['REQUEST_METHOD']);
 

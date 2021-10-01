@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 
@@ -32,16 +33,7 @@ export default function SignUp() {
       password: data.get('password')
     }
 
-    const response: Response = await fetch('http://localhost:8080/user', {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(userData) // body data type must match "Content-Type" header
-    });
-
+    const response: Response = await axios.post('http://localhost:8080/api/user', userData);
     console.log({ response })
   };
 

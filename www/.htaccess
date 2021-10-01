@@ -1,6 +1,8 @@
-RewriteBase /
+RewriteEngine on 
 
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php?path=$1 [NC,L,QSA]
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteRule ^api(.*)$ /backend/index.php?path=$1 [QSA,END]
+RewriteRule ^$ /frontend/build/index.html [L,END]
+RewriteRule ^(.*)$ /frontend/build/$1 [L,QSA,END]
