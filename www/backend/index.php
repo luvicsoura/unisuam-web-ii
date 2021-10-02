@@ -21,8 +21,6 @@
     
     } catch (Throwable $error) {
 
-        print($error);
-
         if (is_subclass_of($error, 'RequestError')) {
             http_response_code($error->get_code());
             echo $error->to_json();

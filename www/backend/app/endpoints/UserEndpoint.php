@@ -38,15 +38,15 @@
 
                 $user_dao = new UserDAO($this->db);
 
-                $result = $user_dao->get_by_username($body->username)->fetch_object();
+                $result = $user_dao->get_by_email($body->email)->fetch_object();
 
                 if ($result) throw new UserAlreadyRegistered();
-
-                $result = $user_dao->create($body);
                 
+                $result = $user_dao->create($body);
+
                 if (!$result) throw new UnableToFulFillRequest();
 
-                $result = $user_dao->get_by_username($body->username)->fetch_object();
+                $result = $user_dao->get_by_email($body->email)->fetch_object();
                 return $result;
             }
         }
