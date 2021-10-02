@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    slug varchar(100) UNIQUE,
-    name VARCHAR(100),
+    slug varchar(100) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
     description TEXT,
-    quantity MEDIUMINT,
+    quantity MEDIUMINT DEFAULT 0,
     image VARCHAR(500)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1
