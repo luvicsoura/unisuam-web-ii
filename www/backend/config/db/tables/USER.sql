@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) UNIQUE,
-    password VARCHAR(100)
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1

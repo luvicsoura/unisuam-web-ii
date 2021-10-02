@@ -8,7 +8,7 @@
         private $user;
         private $password;
         private $database;
-        private $connection;
+        public $connection;
 
         public function __construct($uri, $user, $password, $database) {
         

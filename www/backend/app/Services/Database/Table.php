@@ -10,6 +10,61 @@
             $this->table_name = $table_name;
         }
 
+        public function filter_by($filter) {
+
+            $query = "SELECT * FROM $this->table_name";
+
+            if ($filter) {
+
+                $attributes = array_keys($filter);
+                $values = array_values($filter);
+
+                $query .= " WHERE $attributes[0] = '$values[0]'";
+            }
+
+            return $this->db->perform_query($query);
+        }
+
+        public function delete_by_filter($filter) {
+            $query = "DELETE FROM $this->table_name";
+
+            if ($filter) {
+
+                $attributes = array_keys($filter);
+                $values = array_values($filter);
+
+                $query .= " WHERE $attributes[0] = '$values[0]'";
+            }
+
+            echo $query;
+
+            return $this->db->perform_query($query);
+        }
+
+        public function update_by_filter($new_data, $filter) {
+            
+            $query = "UPDATE $this->table_name SET";
+
+            $query_data = $this->map_data_to_query_data($new_data);
+            $setters = array();
+
+            foreach ($query_data['keys'] as $index => $key) {
+                array_push($setters, "$key = '".$query_data['values'][$index]."'");
+            }
+
+            $query .= " ".implode(', ', $setters);
+
+            if ($filter) {
+
+                $attributes = array_keys($filter);
+                $values = array_values($filter);
+
+                $query .= " WHERE $attributes[0] = '$values[0]'";
+            }
+
+            return $this->db->perform_query($query);
+        }
+
         public function insert($data) {
 
             $query_data = $this->map_data_to_query_data($data);
@@ -18,15 +73,6 @@
             $values = implode(', ', array_map(fn($value) => "'$value'", $query_data['values']));
             
             $query = "INSERT INTO $this->table_name ($keys) VALUES ($values)";
-            return $this->db->perform_query($query);
-        }
-
-        public function filter_by($filter) {
-
-            $attributes = array_keys($filter);
-            $values = array_values($filter);
-
-            $query = "SELECT * FROM $this->table_name WHERE $attributes[0] = '$values[0]'";
             return $this->db->perform_query($query);
         }
 
