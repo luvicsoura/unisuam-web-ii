@@ -5,7 +5,7 @@
     require_once dirname(__DIR__).'/Errors/App/UnableToFulfillRequest.php';
 
     $context->register_endpoint('/product/:slug', function ($c) {
-        class UserEndpoint {
+        class ProductEndpoint {
 
             private $db;
             private $product_dao;
@@ -39,11 +39,11 @@
             }
         }
 
-        return new UserEndpoint($c['db']);
+        return new ProductEndpoint($c['db']);
     });
 
     $context->register_endpoint('/product', function ($c) {
-        class UserEndpoint {
+        class ProductEndpoint {
 
             private $db;
 
@@ -86,6 +86,6 @@
             }
         }
 
-        return new UserEndpoint($c['db']);
+        return new ProductEndpoint($c['db']);
     });
 ?>
