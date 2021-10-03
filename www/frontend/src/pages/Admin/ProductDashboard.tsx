@@ -26,15 +26,16 @@ export class ProductDashboard extends Component {
     }
 
     componentDidMount() {
-        if (this.state.fetchProducts) this.getProducts();
+        this.getProducts();
     }
 
     componentDidUpdate() {
-        if (this.state.fetchProducts) this.getProducts();
+        this.getProducts();
     }
 
     async getProducts() {
 
+        if (!this.state.fetchProducts) return;
 
         const { data:products } = await httpClient.get('/product');
 
@@ -155,7 +156,7 @@ export class ProductDashboard extends Component {
             case VIEWS.productList: 
                 components.push(
                     <Container>
-                        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                             {!this.state.products.length && (
                                 <ListItem>
                                     <ListItemText 

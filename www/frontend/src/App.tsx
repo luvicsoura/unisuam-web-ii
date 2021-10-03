@@ -6,11 +6,12 @@ import {
 import { LoginContext } from './contexts/Login';
 
 import { AdminPage }  from './pages/Admin';
+import { ProductListing } from './pages/ProductList';
 
 const theme = createTheme();
 export default class App extends React.Component {
   state = {
-    authed: true
+    authed: false
   }
 
   render() {
@@ -19,8 +20,11 @@ export default class App extends React.Component {
         <ThemeProvider theme={theme}>
           <Router>
             <Switch>
-              <Route path="/admin">
+              <Route exact path="/admin">
                 <AdminPage/>
+              </Route>
+              <Route exact path="/">
+                <ProductListing/>
               </Route>
             </Switch>
           </Router>

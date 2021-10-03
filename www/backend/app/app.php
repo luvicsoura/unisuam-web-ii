@@ -41,7 +41,21 @@
 
         private function setup_database() {
             
-            $queries_dir = dirname(__DIR__).'/config/db/tables';
+            $this->setup_tables();
+            $this->setup_initial_entries();
+        }
+
+        private function setup_tables() {
+            $this->perform_queries_from_dir('/config/db/tables');
+        }
+
+        private function setup_initial_entries() {
+            $this->perform_queries_from_dir('/config/db/entries');
+        }
+
+        private function perform_queries_from_dir($dir) {
+            
+            $queries_dir = dirname(__DIR__).$dir;
             $query_files = get_files_in_dir($queries_dir);
 
             foreach($query_files as $query_file) {

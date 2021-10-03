@@ -1,0 +1,1 @@
+INSERT IGNORE INTO users (email, password) VALUES ('admin@localhost', 'admin');

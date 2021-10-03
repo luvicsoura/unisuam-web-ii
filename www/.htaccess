@@ -5,4 +5,5 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteRule ^api(.*)$ /backend/index.php?path=$1 [QSA,END]
 RewriteRule ^$ /frontend/build/index.html [L,END]
+RewriteRule admin /frontend/build/index.html [L,END]
 RewriteRule ^(.*)$ /frontend/build/$1 [L,QSA,END]
