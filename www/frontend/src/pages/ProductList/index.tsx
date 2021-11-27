@@ -29,6 +29,8 @@ export class ProductListing extends Component {
 
         const { data:products } = await httpClient.get('/product');
 
+        console.log('products', products);
+
         this.setState({ 
             products: products.filter((product:any) => product.quantity > 0),
             fetchProducts: false
@@ -40,7 +42,12 @@ export class ProductListing extends Component {
         if (!product.quantity) return;
 
         this.setState({
-            cartItems: [...this.state.cartItems, product ],
+            cartItems: [...this.state.cartItems, {
+                productId: product.id,
+                quantity: parseInt(product.quantity),
+                productName: product.name,
+                price: parseInt(product.price),
+            }],
             showSnackBar: true
         })
     }

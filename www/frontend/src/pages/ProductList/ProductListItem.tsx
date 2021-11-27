@@ -25,7 +25,10 @@ export class ProductListItem extends Component<ProductListItemProps> {
     }
 
     handleAddToCart = () => {
-        this.props.onAddToCart({...this.state});
+        this.props.onAddToCart({
+            ...this.props.product,
+            quantity: this.state.quantity,
+        });
     }
     
     render = () => (
@@ -59,7 +62,7 @@ export class ProductListItem extends Component<ProductListItemProps> {
         >
             <ListItemText 
                 primary = {this.props.product.name} 
-                secondary = {this.props.product.description.substring(0, 90) + '...'}
+                secondary = {this.props.product?.description ? this.props.product.description.substring(0, 90) + '...' : ''}
             />
         </ListItem>
     )

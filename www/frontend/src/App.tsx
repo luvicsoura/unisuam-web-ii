@@ -11,12 +11,18 @@ import { ProductListing } from './pages/ProductList';
 const theme = createTheme();
 export default class App extends React.Component {
   state = {
-    authed: false
+    authed: false,
+    user: {},
   }
 
   render() {
     return (
-      <LoginContext.Provider value={{authed: this.state.authed, setAuthed: (authed) => this.setState({ authed })}}>
+      <LoginContext.Provider value={{
+        authed: this.state.authed, 
+        user: this.state.user,
+        setAuthed: (authed) => this.setState({ authed }),
+        setUser: (user) => this.setState({ user })
+      }}>
         <ThemeProvider theme={theme}>
           <Router>
             <Switch>
