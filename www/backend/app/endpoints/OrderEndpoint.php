@@ -32,15 +32,15 @@
                 $result = $this->db->perform_query($query, true);
                 
 
-                $order_dao = new OrderDAO();
+                $order_dao = new OrderDAO($this->db);
                 foreach ($body as $__ => $orderItem) {
 
                     $order_result = $order_dao->create(array(
-                        "productId" => $orderItem->productId,
-                        "quantity" => $orderItem->quantity
+                        "productName" => $orderItem->productName,
+                        "price" => $orderItem->price,
+                        "quantity" => $orderItem->quantity,
+                        "total" => $orderItem->quantity * $orderItem->price
                     ));
-                    return mysqli_error($this->db);
-                    
                 }
 
                 if (!$order_result) {
@@ -51,7 +51,33 @@
                 // print_r($result);
                 // print_r($query);
 
-                // return $body;
+                return $body;
+            }
+        }
+
+        return new UserEndpoint($c['db']);
+    });
+
+    $context->register_endpoint('/orders', function ($c) {
+        class UserEndpoint {
+
+            private $db;
+
+            public function __construct($database) {
+                $this->db = $database;
+            }
+
+            public function get($body, $params) {
+
+                $order_dao = new OrderDAO($this->db);
+                $result = $order_dao->getOrders();
+                $entries = [];
+
+                while ($entry = $result->fetch_object()) {
+                    array_push($entries, $entry);
+                }
+
+                return $entries;
             }
         }
 

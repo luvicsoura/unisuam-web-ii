@@ -12,5 +12,9 @@
         public function create($order) {
             return $this->table->insert($order);
         }
+
+        public function getOrders() {
+            return $this->table->filter_by(null);
+        }
     }
 ?>

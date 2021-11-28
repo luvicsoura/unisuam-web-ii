@@ -20,7 +20,7 @@
         $app->init();
     
     } catch (Throwable $error) {
-
+        print_r($error); // for testing
         if (is_subclass_of($error, 'RequestError')) {
             http_response_code($error->get_code());
             echo $error->to_json();
