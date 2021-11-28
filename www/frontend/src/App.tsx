@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 import { LoginContext } from './contexts/Login';
-
+import './App.css';
 import { AdminPage }  from './pages/Admin';
 import { ProductListing } from './pages/ProductList';
 

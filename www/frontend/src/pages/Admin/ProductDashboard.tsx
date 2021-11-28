@@ -7,7 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import React, { Component } from 'react';
 import Fab from '@mui/material/Fab';
 import { httpClient } from '../../httpClient';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { OriginalState, ProductEditForm, ProductEditFormState } from './ProductEditForm';
+import { OrderReport } from '../../components/OrderReport';
 
 enum VIEWS {
     productList,
@@ -119,12 +121,24 @@ export class ProductDashboard extends Component {
             <Fab 
                 color="primary"
                 aria-label="add"
+                className="hideFromPrint"
                 onClick = {this.toggleCreate}
             >
                 {this.state.view === VIEWS.productList ? 
                     <AddIcon /> : <CloseIcon/>
                 }
-            </Fab>
+            </Fab>,
+            <OrderReport className="showOnlyInPrint"/>,
+            this.state.view === VIEWS.productList ? (
+                <Fab 
+                    color="primary"
+                    aria-label="add"
+                    className="hideFromPrint"
+                    onClick = {() => {window.print()}}
+                >
+                    <InsertDriveFileIcon />
+                </Fab>
+            ) : null
         ]
 
         // Mal-escrito
@@ -155,7 +169,7 @@ export class ProductDashboard extends Component {
 
             case VIEWS.productList: 
                 components.push(
-                    <Container>
+                    <Container className="hideFromPrint">
                         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                             {!this.state.products.length && (
                                 <ListItem>
@@ -189,7 +203,7 @@ export class ProductDashboard extends Component {
                                 >
                                     <ListItemText 
                                         primary = {product.name} 
-                                        secondary = {product.description.substring(0, 90) + '...'}
+                                        secondary = {product?.description ? product.description.substring(0, 90) + '...' : ''}
                                     />
                                 </ListItem>
                             ))}
