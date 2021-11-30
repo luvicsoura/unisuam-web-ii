@@ -10,11 +10,14 @@ import { httpClient } from '../../httpClient';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { OriginalState, ProductEditForm, ProductEditFormState } from './ProductEditForm';
 import { OrderReport } from '../../components/OrderReport';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PrintIcon from '@mui/icons-material/Print';
 
 enum VIEWS {
     productList,
     createProduct,
-    editProduct
+    editProduct,
+    report
 }
 
 
@@ -128,17 +131,16 @@ export class ProductDashboard extends Component {
                     <AddIcon /> : <CloseIcon/>
                 }
             </Fab>,
-            <OrderReport className="showOnlyInPrint"/>,
-            this.state.view === VIEWS.productList ? (
-                <Fab 
-                    color="primary"
-                    aria-label="add"
-                    className="hideFromPrint"
-                    onClick = {() => {window.print()}}
-                >
-                    <InsertDriveFileIcon />
-                </Fab>
-            ) : null
+            <Fab 
+                color="primary"
+                aria-label="add"
+                className="hideFromPrint"
+                onClick = {() => this.setState({ view: this.state.view === VIEWS.report ? VIEWS.productList : VIEWS.report })}
+            >
+                {this.state.view === VIEWS.report ? 
+                    <ArrowBackIcon/> : <InsertDriveFileIcon />
+                }
+            </Fab>
         ]
 
         // Mal-escrito
@@ -208,6 +210,22 @@ export class ProductDashboard extends Component {
                                 </ListItem>
                             ))}
                         </List>
+                    </Container>
+                );
+                break;
+
+            case VIEWS.report:
+                components.push(
+                    <Container>
+                        <OrderReport/>
+                        <IconButton 
+                            edge="end" 
+                            aria-label="edit"
+                            className="hideFromPrint"
+                            onClick = {() => window.print()}
+                        >
+                            <PrintIcon/>
+                        </IconButton>
                     </Container>
                 );
                 break;
